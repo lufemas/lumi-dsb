@@ -1,0 +1,36 @@
+@import './variables';
+
+.horizontal-nav{
+    background-color: $accent-bg;
+    color: $text;
+    width:100%;
+    display: flex;
+    padding: .5em;
+
+    .item{
+        display: inline-block;
+        padding: .5em 1em;
+        position: relative;
+        margin: 0 .5em;
+    }
+
+    .item::after{
+        content: '';
+        position: absolute;
+        top:10%;
+        right: -.5em;
+        height: 80%;
+        border-right: 1px solid $secondary-bg;
+
+    }
+
+    .item
+    :focus, :hover{
+        cursor: pointer;
+        display: inline-block;
+        background-color: $bg;
+        color: $contrast-text;
+        text-shadow: $contrast-text 0px 0px 2px;
+    }
+
+}

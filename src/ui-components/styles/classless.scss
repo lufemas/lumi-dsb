@@ -1,0 +1,37 @@
+@import 'variables';
+
+button{
+    color: $btn-primary-bg;
+    background-color: $btn-primary-text;
+    border: none;
+    border-radius: 3px;
+    font-weight: 600;
+    padding: .5em 1em;
+    letter-spacing: 1px;
+    transition: all .2s ease-in;
+    
+    &:hover{
+    cursor: pointer;
+    background-color: $bg;
+    color: $btn-primary-hover-text;
+    transition: none;
+    text-shadow: $btn-primary-hover-text 0px 0px 6px ;
+    }
+}
+
+input, select{
+    background-color: $secondary-bg;
+    border: none;
+    border-bottom: $btn-primary-bg solid 2px;
+    padding: .5em .4em .25em .4em;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    margin-bottom: 1em;
+
+    
+}
+
+// input:focus, select:focus{
+
+    
+// }

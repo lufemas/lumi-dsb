@@ -1,30 +1,18 @@
-import {
-  Navbar,
-  Alignment,
-  Classes,
-  Button,
-  Intent,
-  Spinner,
-  Overlay,
-  Card,
-  InputGroup,
-} from "@blueprintjs/core";
-
-// using node-style package resolution in a CSS file:
-// @import "~normalize.css";
-import "@blueprintjs/core/lib/css/blueprint.css";
-import "@blueprintjs/icons/lib/css/blueprint-icons.css";
+import './ui-components/styles/_reset.scss'
+import './ui-components/styles/classless.scss'
+import './ui-components/styles/classes.scss'
 
 import { useState, useContext } from "react";
 import DbsContextProvider, { DbsContext } from "./contexts/DbsContext";
 import Main from "./components/Main";
+import SchemaContextProvider from './contexts/SchemaContext';
 
 function App() {
   const [addOverlayIsOpen, setAddOverlayIsOpen] = useState(false);
   return (
     <div className="App">
       <DbsContextProvider>
-        <Navbar>
+        {/* <Navbar>
           <Navbar.Group align={Alignment.LEFT}>
             <Navbar.Heading>LumiDSB</Navbar.Heading>
             <Navbar.Divider />
@@ -37,9 +25,10 @@ function App() {
               onClick={() => setAddOverlayIsOpen(!addOverlayIsOpen)}
             />
           </Navbar.Group>
-        </Navbar>
-
-        <Main objs={{addOverlayIsOpen, setAddOverlayIsOpen, texto:"aaaa"}} />
+        </Navbar> */}
+        <SchemaContextProvider>
+          <Main objs={{ addOverlayIsOpen, setAddOverlayIsOpen, texto: "aaaa" }} />
+        </SchemaContextProvider>
       </DbsContextProvider>
     </div>
   );

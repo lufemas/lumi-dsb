@@ -1,0 +1,21 @@
+@import 'variables';
+
+button.primary{
+    background-color: $btn-primary-bg;
+    color: $btn-primary-text;
+    border: none;
+    border-radius: 3px;
+    font-weight: 600;
+    padding: .5em 1em;
+    letter-spacing: 1px;
+    transition: all .2s ease-in;
+    &:hover{
+        cursor: pointer;
+        background-color: $btn-primary-hover-bg;
+        color: $btn-primary-hover-text;
+        transition: none;
+        text-shadow: $btn-primary-hover-text 0px 0px 6px ;
+
+    }
+
+}
