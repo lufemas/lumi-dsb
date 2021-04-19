@@ -21,12 +21,17 @@ export default function Tabs(props) {
       })}
 
       {React.Children.map(props.children, (child, index) => {
-
+        let display = "none"
+        
         if (index == active) {
-          return (
-            child
-          )
+          display = "block"
         }
+
+        return (
+          <div style={{display}}>
+          {child}
+          </div>
+        )
       })}
 
 

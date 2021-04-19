@@ -1,10 +1,10 @@
 import '../styles/tree.scss'
 import React, { useContext } from 'react'
-import { SchemaContext } from '../contexts/SchemaContext'
+import { DbsContext } from '../contexts/DbsContext'
 
-export default function SchemaViewer() {
+export default function DataViewer() {
 
-  const { jsonSchema, setJsonSchema } = useContext(SchemaContext)
+  const { jsonDBS, setJsonDBS } = useContext(DbsContext)
 
   const generateTreeForItem = (item) => {
 
@@ -12,8 +12,8 @@ export default function SchemaViewer() {
       if (typeof item[rootKey] === 'object' && item[rootKey] !== null) {
         return (
           <li className="section">
-            <input type="checkbox" id={`schema-${rootKey}`} />
-            <label for={`schema-${rootKey}`}>{rootKey} <sup>({Object.keys(item[rootKey]).length})</sup></label>
+            <input type="checkbox" id={`data-${rootKey}`} />
+            <label for={`data-${rootKey}`}>{rootKey} <sup>({Object.keys(item[rootKey]).length})</sup></label>
 
             <ul>{generateTreeForItem(item[rootKey])}</ul>
 
@@ -32,12 +32,11 @@ export default function SchemaViewer() {
   return (
     <div>
       <ul class="tree">
-        {/* <!-- (A) "NORMAL" ITEMS --> */}
 
 
         {
 
-          generateTreeForItem(jsonSchema)
+          generateTreeForItem(jsonDBS)
 
         }
 

@@ -3,7 +3,7 @@ import { DbsContext } from "../contexts/DbsContext";
 import { SchemaContext } from "../contexts/SchemaContext";
 import Modal from "../ui-components/Modal";
 
-export default function AddModal() {
+export default function AddModal({setShowAddModal}) {
   const { jsonDBS, setJsonDBS } = useContext(DbsContext);
   const { jsonSchema, setJsonSchema } = useContext(SchemaContext)
   const [modalAddIsOpen, modalAddSetIsOpen] = useState(true);
@@ -48,7 +48,7 @@ export default function AddModal() {
           </div>
           <br></br>
 
-          <button onClick={() => modalAddSetIsOpen(!modalAddIsOpen)}>
+          <button onClick={() => setShowAddModal(false)}>
             Cancel
           </button>
           <button className="primary" onClick={()=>{
@@ -61,7 +61,10 @@ export default function AddModal() {
               [newField.name]: 2,
             });
             setNewField({ name: "", type: "" });
-          }}>
+          setShowAddModal(false)
+
+          }
+          }>
             Insert
           </button>
         </Modal>

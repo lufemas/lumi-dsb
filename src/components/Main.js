@@ -6,6 +6,7 @@ import { DbsContext } from "../contexts/DbsContext";
 import { SchemaContext } from "../contexts/SchemaContext";
 import Modal from "../ui-components/Modal";
 import AddModal from "./AddModal";
+import DataViewer from "./DataViewer";
 import MainNav from "./MainNav";
 import SchemaViewer from "./SchemaViewer";
 import Tabs from "./Tabs";
@@ -15,6 +16,7 @@ export default function Main({ objs }) {
   const { jsonDBS, setJsonDBS } = useContext(DbsContext);
   const { jsonSchema, setJsonSchema } = useContext(SchemaContext)
   const [fields, setFields] = useState([]);
+  const [showAddModal, setShowAddModal] = useState(false)
 
 
 
@@ -24,12 +26,17 @@ export default function Main({ objs }) {
 
   return (
     <main>
-      <MainNav />
-      <AddModal />
+      <MainNav setShowAddModal={setShowAddModal}/>
+
+      {
+        showAddModal ? <AddModal setShowAddModal={setShowAddModal} /> : null
+
+      
+      }
 
       <div style={{ display: "flex" }}>
       <div style={{ width: "50%", padding: "0em 2em" }}>
-      
+      Schema
         <Tabs>
         Schema Viewer
         
@@ -92,17 +99,7 @@ export default function Main({ objs }) {
 
           {/* <div style={{ width: "50%", height: "100%" }}> */}
           Json
-           <p>Nothing here</p>
-          </Tabs>
-
-          </div>
-
-      <div style={{ width: "50%", padding: "0em 2em" }}>
-
-        <Tabs>
-
-        Json
-        <ReactJson
+          <ReactJson
             src={jsonSchema}
             theme="brewer"
             style={{ width: "100%", height: "100%", padding: "2em 2em" }}
@@ -110,13 +107,26 @@ export default function Main({ objs }) {
             onAdd={(edit)=> setJsonSchema(edit.updated_src)}
             onDelete={(edit)=> setJsonSchema(edit.updated_src)}
           />
-          
-          {/* </div> */}
+          </Tabs>
+
+          </div>
+
+      <div style={{ width: "50%", padding: "0em 2em" }}>
+        Data
+        <Tabs>
+
         Viewer
+        <DataViewer/>
+          {/* </div> */}
+        
+        Json
         <ReactJson
             src={jsonDBS}
             theme="brewer"
             style={{ width: "100%", height: "100%", padding: "2em 2em" }}
+            onEdit={(edit)=> setJsonDBS(edit.updated_src)}
+            onAdd={(edit)=> setJsonDBS(edit.updated_src)}
+            onDelete={(edit)=> setJsonDBS(edit.updated_src)}
           />
      
         </Tabs>
