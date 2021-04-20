@@ -17,7 +17,7 @@ const SchemaContextProvider = (props) => {
 
         },
 
-        "Amors": {
+        "Armors": {
 
             bodyPart: "String",
             material: "String",
@@ -34,12 +34,19 @@ const SchemaContextProvider = (props) => {
 
     });
 
+    const addField = (node, field) => {
+        node = "Armors"
+        const newSchema = jsonSchema
+        newSchema[node][field.name] = field.type
+        setJsonSchema(newSchema)
+    }
+
     const addNode = (node) => {
         setJsonSchema({ ...jsonSchema, node })
     }
 
     return (
-        <SchemaContext.Provider value={{ jsonSchema, setJsonSchema }} >
+        <SchemaContext.Provider value={{ jsonSchema, setJsonSchema, addField }} >
             {props.children}
         </SchemaContext.Provider>
     )

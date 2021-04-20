@@ -1,11 +1,9 @@
 import React, { useState } from "react";
 import "./styles/modal.scss";
 import "./styles/behaviors.scss";
-export default function Modal({ isOpen, children, title, toClose }) {
-  const [open, setOpen] = useState(isOpen);
+export default function Modal({ children, title, toClose }) {
 
-  const modalClassName = "modal " + (open ? "show" : "hide");
-  console.log(open);
+  const modalClassName = "modal";
   return (
     <div className={modalClassName}>
       <div className="container">
@@ -13,7 +11,7 @@ export default function Modal({ isOpen, children, title, toClose }) {
           <h3 className="header">
               <span className="title">{title}</span>
               <span className="controls">
-                  <button className="control-button" onClick={toClose}>X</button>
+                  <button className="control-button" onClick={()=> toClose()}>X</button>
               </span>
               </h3>
 

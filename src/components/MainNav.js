@@ -1,12 +1,10 @@
 import React from 'react'
 import HorizontalNav from '../ui-components/HorizontalNav'
 
-export default function MainNav({setShowAddModal}) {
+export default function MainNav(props) {
     return (
         <HorizontalNav>
-            <a>Home</a>
-            <span>New</span>
-            <a onClick={()=> setShowAddModal(true)}>Add</a>
+            {props.children}
         </HorizontalNav>
     )
 }

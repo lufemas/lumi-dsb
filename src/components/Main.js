@@ -26,10 +26,14 @@ export default function Main({ objs }) {
 
   return (
     <main>
-      <MainNav setShowAddModal={setShowAddModal}/>
+      <MainNav>
+      <a>Home</a>
+        <span>New</span>
+        <a onClick={()=> setShowAddModal(true)}>Add</a>
+      </MainNav>
 
       {
-        showAddModal ? <AddModal setShowAddModal={setShowAddModal} /> : null
+        showAddModal ? <AddModal setIsOpen={setShowAddModal} isOpen={showAddModal} /> : null
 
       
       }
