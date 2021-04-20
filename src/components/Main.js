@@ -32,12 +32,8 @@ export default function Main({ objs }) {
         <a onClick={()=> setShowAddModal(true)}>Add</a>
       </MainNav>
 
-      {
-        showAddModal ? <AddModal setIsOpen={setShowAddModal} isOpen={showAddModal} /> : null
-
+      <AddModal setIsOpen={setShowAddModal} isOpen={showAddModal} /> 
       
-      }
-
       <div style={{ display: "flex" }}>
       <div style={{ width: "50%", padding: "0em 2em" }}>
       Schema

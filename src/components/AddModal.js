@@ -3,21 +3,23 @@ import { DbsContext } from "../contexts/DbsContext";
 import { SchemaContext } from "../contexts/SchemaContext";
 import Modal from "../ui-components/Modal";
 
-export default function AddModal({isOpen, setIsOpen}) {
+export default function AddModal({ isOpen, setIsOpen, node }) {
   const { jsonDBS, setJsonDBS } = useContext(DbsContext);
   const { jsonSchema, setJsonSchema, addField } = useContext(SchemaContext)
   const [fields, setFields] = useState([]);
   const [newField, setNewField] = useState({ name: "", type: "" });
 
-  if(isOpen)
-  return (
-    <>
-    
+  if (isOpen){
+
+    return (
+      <>
+
         <Modal
           // isOpen={isOpen}
           title={"Add Field"}
           toClose={() => setIsOpen(false)}
         >
+          <h4>{node.name}</h4>
           <input
             asyncControl={true}
             disabled={false}
@@ -52,7 +54,7 @@ export default function AddModal({isOpen, setIsOpen}) {
           <button onClick={() => setIsOpen(false)}>
             Cancel
           </button>
-          <button className="primary" onClick={()=>{
+          <button className="primary" onClick={() => {
             setFields([
               ...fields,
               { name: newField.name, type: newField.type },
@@ -61,16 +63,19 @@ export default function AddModal({isOpen, setIsOpen}) {
               ...jsonDBS,
               [newField.name]: 2,
             });
-            addField('node', newField)
+            addField(node, newField)
             setNewField({ name: "", type: "" });
-          setIsOpen(false)
+            setIsOpen(false)
 
           }
           }>
             Insert
           </button>
         </Modal>
-     
-    </>
-  );
+
+      </>
+    );
+  }else{
+    return null
+  }
 }
