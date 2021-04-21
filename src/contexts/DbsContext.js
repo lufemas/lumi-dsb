@@ -13,7 +13,7 @@ const DbsContextProvider = (props) => {
             range: 2,
             consumable: false,
             equipLoad: 2.5,
-            canUse: ["humans, orcs, dwarfs"],
+            canUse: ["humans", "orcs", "dwarfs"],
         }
     }
 

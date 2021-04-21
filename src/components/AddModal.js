@@ -9,7 +9,7 @@ export default function AddModal({ isOpen, setIsOpen, node }) {
   const [fields, setFields] = useState([]);
   const [newField, setNewField] = useState({ name: "", type: "" });
 
-  if (isOpen){
+  if (isOpen) {
 
     return (
       <>
@@ -45,8 +45,7 @@ export default function AddModal({ isOpen, setIsOpen, node }) {
               <option value="Text">Text</option>
               <option value="Boolean">Boolean</option>
               <option value="Array">Array</option>
-              <option value="Dict">Dict</option>
-              <option value="Fields">Fields</option>
+              <option value="Table">Table</option>
             </select>
           </div>
           <br></br>
@@ -55,6 +54,20 @@ export default function AddModal({ isOpen, setIsOpen, node }) {
             Cancel
           </button>
           <button className="primary" onClick={() => {
+
+            switch (newField.type) {
+              // case "Array":
+              //   newField.type = []
+              //   break;
+
+              case "Table":
+                newField.type = {}
+                break;
+              
+                default:
+                break;
+            }
+
             setFields([
               ...fields,
               { name: newField.name, type: newField.type },
@@ -75,7 +88,7 @@ export default function AddModal({ isOpen, setIsOpen, node }) {
 
       </>
     );
-  }else{
+  } else {
     return null
   }
 }

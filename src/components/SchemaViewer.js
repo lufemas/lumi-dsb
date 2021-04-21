@@ -19,19 +19,31 @@ export default function SchemaViewer() {
             <input type="checkbox" id={`schema-${rootKey}`} />
             <label for={`schema-${rootKey}`}>
               {rootKey} <sup>({Object.keys(item[rootKey]).length})</sup>
+
+              {
+              keyPath.length == 0 
+              ? <button onClick=
+              {
+                ()=>setNodeInChange({name : rootKey, path: []})
+              }>
+                  Populate
+                </button> 
+              : null
+              }
+
               <button onClick={() => {
                 setNodeInChange({name : rootKey, path: keyPath})
                 setShowAddModal(true)
               }
               }
-              >Add {keyPath}</button>
-               <button onClick={() => {
+              >Add Field</button>
+               <button  onClick={() => {
                 setNodeInChange({name : rootKey, path: keyPath})
                 // setShowAddModal(true)
                 deleteField({name : rootKey, path: keyPath})
               }
               }
-              >Delete {keyPath}</button>
+              >Delete Scheme</button>
             </label>
 
             <ul>{generateTreeForItem(item[rootKey],[...keyPath, rootKey])}</ul>
