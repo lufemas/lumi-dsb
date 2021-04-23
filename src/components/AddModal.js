@@ -1,13 +1,21 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { DbsContext } from "../contexts/DbsContext";
 import { SchemaContext } from "../contexts/SchemaContext";
 import Modal from "../ui-components/Modal";
 
-export default function AddModal({ isOpen, setIsOpen, node }) {
+export default function AddModal({ isOpen, setIsOpen, selectedNodeId }) {
   const { jsonDBS, setJsonDBS } = useContext(DbsContext);
   const { jsonSchema, setJsonSchema, addField } = useContext(SchemaContext)
   const [fields, setFields] = useState([]);
   const [newField, setNewField] = useState({ name: "", type: "" });
+  const [ selectedNode, SetSelectedNode ] = useState({}) 
+
+  useEffect(() => {
+    if(selectedNodeId == "") return
+    SetSelectedNode(jsonSchema.find(f => f.id === selectedNodeId))
+    console.log(selectedNodeId)
+    return {}
+  }, [isOpen])
 
   if (isOpen) {
 
@@ -19,7 +27,7 @@ export default function AddModal({ isOpen, setIsOpen, node }) {
           title={"Add Field"}
           toClose={() => setIsOpen(false)}
         >
-          <h4>{node.name}</h4>
+          <h4>{selectedNode.name}</h4>
           <input
             asyncControl={true}
             disabled={false}
@@ -55,28 +63,16 @@ export default function AddModal({ isOpen, setIsOpen, node }) {
           </button>
           <button className="primary" onClick={() => {
 
-            switch (newField.type) {
-              // case "Array":
-              //   newField.type = []
-              //   break;
-
-              case "Table":
-                newField.type = {}
-                break;
-              
-                default:
-                break;
-            }
-
+           
             setFields([
               ...fields,
               { name: newField.name, type: newField.type },
             ]);
-            setJsonDBS({
-              ...jsonDBS,
-              [newField.name]: 2,
-            });
-            addField(node, newField)
+            addField({
+              parent: selectedNode.id,
+              name: newField.name,
+              type: newField.type
+            })
             setNewField({ name: "", type: "" });
             setIsOpen(false)
 

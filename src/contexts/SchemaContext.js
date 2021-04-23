@@ -1,71 +1,76 @@
 import React, { createContext, useState } from 'react'
+import { v4 as uuidv4 } from 'uuid';
 
 export const SchemaContext = createContext()
 
 const SchemaContextProvider = (props) => {
 
-    const [jsonSchema, setJsonSchema] = useState({
+    const [jsonSchema, setJsonSchema] = useState([
 
-        "Weapons": {
-
-            damage: "Integer",
-            type: "String",
-            range: "Integer",
-            consumable: "Boolean",
-            equipLoad: "Float",
-            canUse: "Array",
+        {
+            id : "1",
+            parent: "",
+            name: "Weapon",
+            type: "Table"
 
         },
 
-        "Armors": {
+        {
+            id: "2",
+            parent: "1",
+            name: "damage",
+            type: "Integer", 
 
-            bodyPart: "String",
-            material: "String",
-            physicalDef: "Integer",
-            magicDef: {
-                fire: "Integer",
-                Ice: "Integer",
-                poison: "Integer",
-                spells: {
-                    curse: "Boolean",
-                    motion: "Boolean"
-                }
-            },
-            specialAttributes: "Array",
+        },
+
+        {
+            id: "3",
+            parent: "1",
+            name: "type",
+            type: "String", 
+
+        },
+
+        {
+            id: "4",
+            parent: "3",
+            name: "type",
+            type: "String", 
 
         }
 
 
-    });
+    ]);
 
-    const getNodeToEdit = (node, tempJsonSchema) =>{
-        console.log(node.path)
-        console.log(node.name)
-       return node.path.length == 0 ? tempJsonSchema[node.name] : getNodeToEdit(node, tempJsonSchema[node.path.shift()])
+    const getField = (id) =>{
+       return 
     }
 
     const getNodeToDelete = (node, tempJsonSchema) =>{
-        console.log(node.path)
-        // console.log(node.name)
-        // console.log(tempJsonSchema)
-       return node.path.length == 0? tempJsonSchema : node.path.length == 1 ? tempJsonSchema[node.path] : getNodeToEdit(node, tempJsonSchema[node.path.shift()])
+      return
     }
 
-    const addField = (node, field) => {
-        node =  getNodeToEdit(node, jsonSchema)
-        node[field.name] = field.type
-        setJsonSchema(jsonSchema)
+    const addField = (field) => {
+        
+      setJsonSchema([
+          ...jsonSchema,
+          {
+              id: uuidv4(),
+              ...field
+          }
+      ])
+
+      console.log("adding field", field, jsonSchema)
     }
 
-    const deleteField = (node, field) => {
-        const newJsonSchema = {...jsonSchema}
-        // delete getNodeToDelete(node, newJsonSchema)[node.name]
-        console.log(';;;;;')
-        console.log (getNodeToDelete(node, newJsonSchema))
-        // console.log(node.name)
-        // console.log(node)
-        // delete node
-        setJsonSchema(newJsonSchema)
+    const deleteField = (id) => {
+        setJsonSchema(
+            jsonSchema
+            .filter(
+                f => f.id !== id && f.parent !== id
+            )
+        )
+
     }
 
     const addNode = (node) => {
